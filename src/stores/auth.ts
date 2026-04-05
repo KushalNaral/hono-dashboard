@@ -21,6 +21,12 @@ export const useAuthStore = defineStore("auth", () => {
     loading.value = true;
     try {
       const session = await api.getSession();
+      // Better Auth returns { session: null, user: null } when no valid session
+      if (!session?.user) {
+        user.value = null;
+        permissions.value = null;
+        return;
+      }
       user.value = session.user;
       try {
         permissions.value = await api.getMyPermissions();

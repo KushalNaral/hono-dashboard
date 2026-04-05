@@ -82,8 +82,9 @@ class ApiClient {
     await this.request("/auth/sign-out", { method: "POST" });
   }
 
-  async getSession(): Promise<AuthSession> {
-    return this.request<AuthSession>("/auth/session");
+  async getSession(): Promise<AuthSession | null> {
+    const res = await this.request<AuthSession | null>("/auth/get-session");
+    return res;
   }
 
   // Users (admin)
