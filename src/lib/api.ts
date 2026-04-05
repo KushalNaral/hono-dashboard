@@ -59,6 +59,77 @@ class ApiClient {
     return qs ? `?${qs}` : "";
   }
 
+  // Generic CRUD Wrapper Methods
+  async listResource<T>(resource: string, params?: ListParams): Promise<PaginatedResponse<T>> {
+    return this.request<PaginatedResponse<T>>(`/${resource}${this.buildQuery(params)}`);
+  }
+
+  async listAllResource<T>(resource: string): Promise<ListAllResponse<T>> {
+    return this.request<ListAllResponse<T>>(`/${resource}/all`);
+  }
+
+  async getResource<T>(resource: string, id: string): Promise<SingleResponse<T>> {
+    return this.request<SingleResponse<T>>(`/${resource}/${id}`);
+  }
+
+  async createResource<T, D = any>(resource: string, data: D): Promise<SingleResponse<T>> {
+    return this.request<SingleResponse<T>>(`/${resource}`, {
+      method: "POST",
+      body: JSON.stringify(data),
+    });
+  }
+
+  async updateResource<T, D = any>(resource: string, id: string, data: D): Promise<SingleResponse<T>> {
+    return this.request<SingleResponse<T>>(`/${resource}/${id}`, {
+      method: "PUT",
+      body: JSON.stringify(data),
+    });
+  }
+
+  async deleteResource<T = any>(resource: string, id: string): Promise<DeleteResponse & T> {
+    return this.request<DeleteResponse & T>(`/${resource}/${id}`, {
+      method: "DELETE",
+    });
+  }
+
+  async bulkCreateResource<T, D = any>(resource: string, data: D[]): Promise<ListAllResponse<T>> {
+    return this.request<ListAllResponse<T>>(`/${resource}/bulk`, {
+      method: "POST",
+      body: JSON.stringify(data),
+    });
+  }
+
+  async bulkUpdateResource<T, D = any>(
+    resource: string, 
+    data: { id: string; data: D }[]
+  ): Promise<ListAllResponse<T>> {
+    return this.request<ListAllResponse<T>>(`/${resource}/bulk`, {
+      method: "PUT",
+      body: JSON.stringify({ updates: data }), // Follows API bulk update schema convention
+    });
+  }
+
+  async bulkDeleteResource(resource: string, ids: string[]): Promise<BulkDeleteResponse> {
+    return this.request<BulkDeleteResponse>(`/${resource}/bulk`, {
+      method: "DELETE",
+      body: JSON.stringify({ ids }),
+    });
+  }
+
+  async changeStatus(resource: string, ids: string[], status: string): Promise<{ success: boolean; updatedCount: number }> {
+    return this.request<{ success: boolean; updatedCount: number }>(`/${resource}/status`, {
+      method: "PUT",
+      body: JSON.stringify({ ids, status }),
+    });
+  }
+
+  async reorderResource(resource: string, updates: { id: string; order: number }[]): Promise<{ success: boolean }> {
+    return this.request<{ success: boolean }>(`/${resource}/reorder`, {
+      method: "PUT",
+      body: JSON.stringify({ updates }),
+    });
+  }
+
   // Auth
   async signIn(email: string, password: string): Promise<AuthSession> {
     return this.request<AuthSession>("/auth/sign-in/email", {
@@ -242,11 +313,14 @@ class ApiClient {
 }
 
 export class ApiError extends Error {
+  status: number;
+
   constructor(
-    public status: number,
+    status: number,
     message: string,
   ) {
     super(message);
+    this.status = status;
     this.name = "ApiError";
   }
 }

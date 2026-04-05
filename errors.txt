@@ -1,0 +1,29 @@
+src/components/AutoForm.vue(2,22): error TS6133: 'unref' is declared but its value is never read.
+src/components/AutoForm.vue(69,50): error TS2724: '"/home/kushal/personal/hono/hono-dashboard/node_modules/zod/v4/classic/external"' has no exported member named 'AnyZodObject'. Did you mean 'ZodObject'?
+src/components/AutoForm.vue(96,18): error TS2339: Property 'errors' does not exist on type 'ZodError<Record<string, unknown>>'.
+src/components/AutoForm.vue(96,33): error TS7006: Parameter 'err' implicitly has an 'any' type.
+src/components/DataTable.vue(109,18): error TS2345: Argument of type '{ style: { width: string | undefined; }; class: string[]; key: string; onClick: any; }' is not assignable to parameter of type '{ readonly class?: string | undefined; } & VNodeProps & AllowedComponentProps & ComponentCustomProps & Record<string, unknown>'.
+  Type '{ style: { width: string | undefined; }; class: string[]; key: string; onClick: any; }' is not assignable to type '{ readonly class?: string | undefined; }'.
+    Types of property 'class' are incompatible.
+      Type 'string[]' is not assignable to type 'string'.
+src/components/DataTable.vue(125,16): error TS2345: Argument of type '{ class: string[]; key: any; onClick: any; }' is not assignable to parameter of type '{ readonly class?: string | undefined; } & VNodeProps & AllowedComponentProps & ComponentCustomProps & Record<string, unknown>'.
+  Type '{ class: string[]; key: any; onClick: any; }' is not assignable to type '{ readonly class?: string | undefined; }'.
+    Types of property 'class' are incompatible.
+      Type 'string[]' is not assignable to type 'string'.
+src/components/DataTable.vue(131,18): error TS2345: Argument of type '{ class: string[]; key: string; }' is not assignable to parameter of type '{ readonly class?: string | undefined; } & VNodeProps & AllowedComponentProps & ComponentCustomProps & Record<string, unknown>'.
+  Type '{ class: string[]; key: string; }' is not assignable to type '{ readonly class?: string | undefined; }'.
+    Types of property 'class' are incompatible.
+      Type 'string[]' is not assignable to type 'string'.
+src/composables/useCrud.ts(1,30): error TS6133: 'Ref' is declared but its value is never read.
+src/composables/useCrud.ts(7,32): error TS6133: 'T' is declared but its value is never read.
+src/layouts/CrudLayoutSidebar.vue(5,1): error TS6192: All imports in import declaration are unused.
+src/layouts/CrudLayoutSidebar.vue(7,3): error TS2305: Module '"@/components/ui/dialog"' has no exported member 'DialogContent'.
+src/layouts/CrudLayoutStandard.vue(7,3): error TS2305: Module '"@/components/ui/dialog"' has no exported member 'DialogContent'.
+src/layouts/CrudLayoutStandard.vue(44,10): error TS6133: 'handleEdit' is declared but its value is never read.
+src/lib/api.ts(317,5): error TS1294: This syntax is not allowed when 'erasableSyntaxOnly' is enabled.
+src/pages/ActivityPage.vue(4,29): error TS6133: 'CardHeader' is declared but its value is never read.
+src/pages/ActivityPage.vue(4,41): error TS6133: 'CardTitle' is declared but its value is never read.
+src/pages/ActivityPage.vue(7,1): error TS6133: 'Separator' is declared but its value is never read.
+src/pages/DashboardPage.vue(10,1): error TS6133: 'Button' is declared but its value is never read.
+src/pages/Test_resourcePage.vue(65,51): error TS18047: '$event.target' is possibly 'null'.
+src/pages/Test_resourcePage.vue(65,65): error TS2339: Property 'value' does not exist on type 'EventTarget'.
